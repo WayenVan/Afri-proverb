@@ -368,3 +368,15 @@ def print_dataset_sample(tokenizer, dataset, num_samples: int = 1) -> None:
         print(item["input_ids"])
         print("\nLABEL IDS:\n\n")
         print(item["label"])
+
+
+def print_dataset_sample_raw(dataset, num_samples: int = 1) -> None:
+    r"""Print sample data from the dataset."""
+
+    for i in range(num_samples):
+        item = dataset[i]
+        print(f"\n======Sample{i}==========\n")
+        print("INPUT:\n\n")
+        print(item["prompt"])
+        print("\nLABEL:\n\n")
+        print(item["label"])

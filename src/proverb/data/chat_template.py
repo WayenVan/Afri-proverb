@@ -80,5 +80,19 @@ def get_template(
             add_generation_prompt=True,
             extra_eos_token=False,
         )
+    elif name == "llama3":
+        return Template(
+            task_type=task_type,
+            tokenizer=tokenizer,
+            add_generation_prompt=True,
+            extra_eos_token=False,
+        )
+    elif name == "smollm3":
+        return Template(
+            task_type=task_type,
+            tokenizer=tokenizer,
+            add_generation_prompt=True,
+            extra_eos_token=True,
+        )
     else:
         raise ValueError(f"Unknown template name: {name}")

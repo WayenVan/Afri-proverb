@@ -20,7 +20,7 @@ def main():
 
     tokenizer.padding_side = "left"
 
-    model = load_model(model_args)
+    model = load_model(model_args, tokenizer)
 
     loaded_datasets = load_proverb_dataset(
         tokenizer, data_args, training_args, task_args

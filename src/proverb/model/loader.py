@@ -10,7 +10,7 @@ from transformers import (
 )
 
 
-def load_model(model_args: ModelArguments) -> torch.nn.Module:
+def load_model(model_args: ModelArguments, tokenizer) -> torch.nn.Module:
     """
     Load model from pretrained checkpoint.
     """
@@ -37,6 +37,17 @@ def load_model(model_args: ModelArguments) -> torch.nn.Module:
             model_args.model_name_or_path,
             trust_remote_code=True,
         )
+    elif "Llama-3.2" in model_args.model_name_or_path:
+        model = AutoModelForCausalLM.from_pretrained(
+            model_args.model_name_or_path,
+            trust_remote_code=True,
+        )
+        model.generation_config.pad_token_id = tokenizer.eos_token_id
+    elif "SmolLM" in model_args.model_name_or_path:
+        model = AutoModelForCausalLM.from_pretrained(
+            model_args.model_name_or_path,
+            trust_remote_code=True,
+        )
     else:
         raise ValueError(f"Unknown model type: {model_args.model_name_or_path}")
 
@@ -50,6 +61,13 @@ def load_tokenizer(model_args: ModelArguments):
         tokenizer = MistralCommonTokenizer.from_pretrained(
             model_args.model_name_or_path,
         )
+        return tokenizer
+    elif "Llama-3.2" in model_args.model_name_or_path:
+        tokenizer = AutoTokenizer.from_pretrained(
+            model_args.model_name_or_path, use_fast=True
+        )
+        tokenizer.pad_token_id = tokenizer.eos_token_id
+        tokenizer.pad_token = tokenizer.eos_token
         return tokenizer
     else:
         return AutoTokenizer.from_pretrained(

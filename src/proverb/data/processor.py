@@ -103,3 +103,50 @@ class Processor:
         self.few_shot_outputs = [
             examples[i][label_column] for i in range(len(examples))
         ]
+
+
+class RawProcessor(Processor):
+    """
+    processor for raw dataset, which will be used for few-shot example fetching
+    """
+
+    def __init__(
+        self,
+        source_language: str,
+        data_args: DataArguments,
+        task_args: TaskArguments,
+    ):
+        super().__init__(
+            tokenizer=None,
+            source_language=source_language,
+            data_args=data_args,
+            task_args=task_args,
+        )
+
+    def __call__(self, example):
+        source_column = self._get_source_column_name()
+        label_column = self._get_label_column_name()
+
+        source = example[source_column]
+        label = example[label_column]
+
+        if self.is_few_shot:
+            prompt = get_few_shots_prompt_by_task(
+                task_type=self.task_args.task_type,
+                source_language=self.source_language,
+                proverb=source,
+                example_inputs=self.few_shot_inputs,
+                example_outputs=self.few_shot_outputs,
+            )
+        else:
+            prompt = get_prompt_by_task(
+                task_type=self.task_args.task_type,
+                source_language=self.source_language,
+                proverb=source,
+            )
+
+        ret = dict()
+        ret["prompt"] = prompt
+        ret["label"] = label
+
+        return ret
