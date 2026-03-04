@@ -146,6 +146,7 @@ class RawProcessor(Processor):
             )
 
         ret = dict()
+        ret["source"] = source
         ret["prompt"] = prompt
         ret["label"] = label
 

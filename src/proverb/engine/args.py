@@ -59,6 +59,10 @@ class TaskArguments:
         "gen_swa_literal", "gen_eng_literal", "gen_swa_fig", "gen_eng_fig"
     ] = "gen_eng_literal"
     my_debug: bool = False
+    api_delay: float = 0.2
+    api_semophore: int = 8
+    api_url: str = "https://api.deepseek.com"
+    api_key_env_name: str = "DEEPSEEK_API_KEY"
 
 
 def _parse_args() -> Tuple[
