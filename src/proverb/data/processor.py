@@ -115,11 +115,13 @@ class RawProcessor(Processor):
     def __init__(
         self,
         source_language: str,
+        location: str,
         data_args: DataArguments,
         task_args: TaskArguments,
     ):
         super().__init__(
             tokenizer=None,
+            location=location,
             source_language=source_language,
             data_args=data_args,
             task_args=task_args,

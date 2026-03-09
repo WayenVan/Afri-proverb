@@ -75,7 +75,7 @@ def load_raw_dataset(
             dataset = Dataset.from_pandas(csv_file)
 
             # dataset = load_dataset("csv", data_files=file_path)["train"]
-            processor = RawProcessor(lang, data_args, task_args)
+            processor = RawProcessor(lang, loc, data_args, task_args)
 
             with training_args.main_process_first(desc="dataset map pre-processing"):
                 process_args = {
