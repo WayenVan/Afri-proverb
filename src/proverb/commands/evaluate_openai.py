@@ -84,9 +84,17 @@ async def fetch_response(
         # 等待以控制速率
         await asyncio.sleep(rate_delay)
         response = await client.chat.completions.create(
-            model=model, messages=[{"role": "user", "content": prompt}]
+            model=model,
+            messages=[{"role": "user", "content": prompt}],
+            max_completion_tokens=1024,
+            reasoning_effort="none",
         )
-        return response.choices[0].message.content
+        content = response.choices[0].message.content
+        if content is None:
+            print(f"Warning: Received empty response for prompt: {prompt}")
+            print(f"Full response: {response}")
+            content = ""
+        return content.strip()
 
 
 def metrics(predicts: List[str], sources: List[str], labels: list[str]):

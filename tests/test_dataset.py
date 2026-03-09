@@ -17,7 +17,7 @@ data_args = DataArguments(
     language="bangubangu",
     override_cache=False,
     processing_num_workers=1,
-    few_shot_num=0,
+    few_shot_num=1,
 )
 
 task_args = TaskArguments(

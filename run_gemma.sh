@@ -5,31 +5,31 @@ export CUDA_LAUNCH_BLOCKING=1
 accelerate launch --num_processes=2 --mixed_precision=bf16 \
   -m proverb.commands.evaluate --config configs/default.yaml \
   --task_type gen_eng_literal \
-  --output_dir outputs/new_prompt/gemma3-4b-it-gen-eng-literal-Somali \
+  --output_dir outputs/new_prompt/gemma3-4b-it-gen-eng-literal-Kenya \
   --model_name_or_path google/gemma-3-4b-it
 
 accelerate launch --num_processes=2 --mixed_precision=bf16 \
   -m proverb.commands.evaluate --config configs/default.yaml \
   --task_type gen_eng_fig \
-  --output_dir outputs/new_prompt/gemma3-4b-it-gen-eng-fig-Somali \
+  --output_dir outputs/new_prompt/gemma3-4b-it-gen-eng-fig-Kenya \
   --model_name_or_path google/gemma-3-4b-it
 #
 accelerate launch --num_processes=2 --mixed_precision=bf16 \
   -m proverb.commands.evaluate --config configs/default.yaml \
   --task_type gen_swa_literal \
-  --output_dir outputs/new_prompt/gemma3-4b-it-gen-swa-literal-Somali \
+  --output_dir outputs/new_prompt/gemma3-4b-it-gen-swa-literal-Kenya \
   --model_name_or_path google/gemma-3-4b-it
 
 accelerate launch --num_processes=2 --mixed_precision=bf16 \
   -m proverb.commands.evaluate --config configs/default.yaml \
   --task_type gen_swa_fig \
-  --output_dir outputs/new_prompt/gemma3-4b-it-gen-swa-fig-Somali \
+  --output_dir outputs/new_prompt/gemma3-4b-it-gen-swa-fig-Kenya \
   --model_name_or_path google/gemma-3-4b-it
 
 # accelerate launch --num_processes=2 --mixed_precision=bf16 \
 #   -m proverb.commands.evaluate --config configs/default.yaml \
 #   --task_type gen_eng_literal \
-#   --output_dir outputs/gemma3-4b-it-gen-eng-literal-Somali \
+#   --output_dir outputs/gemma3-4b-it-gen-eng-literal-Kenya \
 #   --model_name_or_path google/gemma-3-4b-it \
 #   --location Somali \
 #   --language somali
@@ -37,7 +37,7 @@ accelerate launch --num_processes=2 --mixed_precision=bf16 \
 # accelerate launch --num_processes=2 --mixed_precision=bf16 \
 #   -m proverb.commands.evaluate --config configs/default.yaml \
 #   --task_type gen_eng_fig \
-#   --output_dir outputs/gemma3-4b-it-gen-eng-fig-Somali \
+#   --output_dir outputs/gemma3-4b-it-gen-eng-fig-Kenya \
 #   --model_name_or_path google/gemma-3-4b-it \
 #   --location Somali \
 #   --language somali
@@ -45,7 +45,7 @@ accelerate launch --num_processes=2 --mixed_precision=bf16 \
 # accelerate launch --num_processes=2 --mixed_precision=bf16 \
 #   -m proverb.commands.evaluate --config configs/default.yaml \
 #   --task_type gen_swa_literal \
-#   --output_dir outputs/gemma3-4b-it-gen-swa-literal-Somali \
+#   --output_dir outputs/gemma3-4b-it-gen-swa-literal-Kenya \
 #   --model_name_or_path google/gemma-3-4b-it \
 #   --location Somali \
 #   --language somali
@@ -53,7 +53,7 @@ accelerate launch --num_processes=2 --mixed_precision=bf16 \
 # accelerate launch --num_processes=2 --mixed_precision=bf16 \
 #   -m proverb.commands.evaluate --config configs/default.yaml \
 #   --task_type gen_swa_fig \
-#   --output_dir outputs/gemma3-4b-it-gen-swa-fig-Somali \
+#   --output_dir outputs/gemma3-4b-it-gen-swa-fig-Kenya \
 #   --model_name_or_path google/gemma-3-4b-it \
 #   --location Somali \
 #   --language somali
@@ -61,7 +61,7 @@ accelerate launch --num_processes=2 --mixed_precision=bf16 \
 # accelerate launch --num_processes=2 --mixed_precision=bf16 \
 #   -m proverb.commands.evaluate --config configs/default.yaml \
 #   --task_type gen_eng_literal \
-#   --output_dir outputs/gemma3-4b-it-gen-eng-literal-Somali \
+#   --output_dir outputs/gemma3-4b-it-gen-eng-literal-Kenya \
 #   --model_name_or_path google/gemma-3-4b-it \
 #   --location Ethiopia \
 #   --language borana,burji
@@ -69,7 +69,7 @@ accelerate launch --num_processes=2 --mixed_precision=bf16 \
 # accelerate launch --num_processes=2 --mixed_precision=bf16 \
 #   -m proverb.commands.evaluate --config configs/default.yaml \
 #   --task_type gen_eng_fig \
-#   --output_dir outputs/gemma3-4b-it-gen-eng-fig-Somali \
+#   --output_dir outputs/gemma3-4b-it-gen-eng-fig-Kenya \
 #   --model_name_or_path google/gemma-3-4b-it \
 #   --location Ethiopia \
 #   --language borana,burji
@@ -77,7 +77,7 @@ accelerate launch --num_processes=2 --mixed_precision=bf16 \
 # accelerate launch --num_processes=2 --mixed_precision=bf16 \
 #   -m proverb.commands.evaluate --config configs/default.yaml \
 #   --task_type gen_swa_literal \
-#   --output_dir outputs/gemma3-4b-it-gen-swa-literal-Somali \
+#   --output_dir outputs/gemma3-4b-it-gen-swa-literal-Kenya \
 #   --model_name_or_path google/gemma-3-4b-it \
 #   --location Ethiopia \
 #   --language borana,burji
@@ -85,7 +85,7 @@ accelerate launch --num_processes=2 --mixed_precision=bf16 \
 # accelerate launch --num_processes=2 --mixed_precision=bf16 \
 #   -m proverb.commands.evaluate --config configs/default.yaml \
 #   --task_type gen_swa_fig \
-#   --output_dir outputs/gemma3-4b-it-gen-swa-fig-Somali \
+#   --output_dir outputs/gemma3-4b-it-gen-swa-fig-Kenya \
 #   --model_name_or_path google/gemma-3-4b-it \
 #   --location Ethiopia \
 #   --language borana,burji

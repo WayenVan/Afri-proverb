@@ -64,7 +64,7 @@
         "--config",
         "configs/default.yaml",
         "--task_type=gen_swa_literal",
-        "--model_name_or_path=MiniMaxAI/MiniMax-M2.5",
+        "--model_name_or_path=minimax/minimax-m2.1",
         "--template_name=none",
         "--few_shot_num=0",
         "--output_dir=outputs/debug_outputs",

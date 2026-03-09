@@ -15,12 +15,14 @@ class Processor:
         self,
         tokenizer: PreTrainedTokenizer,
         source_language: str,
+        location: str,
         data_args: DataArguments,
         task_args: TaskArguments,
         dataset: Optional[Dataset] = None,
     ):
         self.tokenizer = tokenizer
         self.source_language = source_language
+        self.location = location
 
         self.data_args = data_args
         self.task_args = task_args
@@ -42,8 +44,8 @@ class Processor:
                 task_type=self.task_args.task_type,
                 source_language=self.source_language,
                 proverb=source,
-                example_inputs=self.few_shot_inputs,
-                example_outputs=self.few_shot_outputs,
+                location=self.location,
+                data_args=self.data_args,
             )
         else:
             prompt = get_prompt_by_task(
@@ -135,8 +137,8 @@ class RawProcessor(Processor):
                 task_type=self.task_args.task_type,
                 source_language=self.source_language,
                 proverb=source,
-                example_inputs=self.few_shot_inputs,
-                example_outputs=self.few_shot_outputs,
+                location=self.location,
+                data_args=self.data_args,
             )
         else:
             prompt = get_prompt_by_task(

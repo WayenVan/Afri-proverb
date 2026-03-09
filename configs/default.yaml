@@ -12,10 +12,10 @@ template_name: gemma
 few_shot_num: 0
 # location: "DRC"
 # language: "kwele, tetela, bangubangu, hema, hemba, holoholo, nande, taabwa, tshiluba"
-# location: "Uganda"
-# language: "alur, chiga, ganda, rufumbira, runyoro, soga, tooro"
-location: "Somali"
-language: "somali"
+location: "Uganda"
+language: "alur, chiga, ganda, rufumbira, runyoro, soga, tooro"
+# location: "Somali"
+# language: "somali"
 # location: "Ethiopia"
 # language: "borana, burji"
 
@@ -41,7 +41,7 @@ lr_scheduler_type: cosine
 output_dir: outputs/gemma3-12b-it-gen-eng-literal
 
 # only use for api calls
-api_delay: 0.2
-api_semophore: 8 # how many api calls are paralling calls
-api_url: "https://api.together.xyz/v1"
-api_key_env_name: "TOGATHER_API_KEY"
+api_delay: 1
+api_semophore: 6 # how many api calls are paralling calls
+api_url: "https://openrouter.ai/api/v1"
+api_key_env_name: "OPENROUTER_API_KEY"
