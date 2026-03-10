@@ -12,10 +12,10 @@ template_name: gemma
 few_shot_num: 0
 # location: "DRC"
 # language: "kwele, tetela, bangubangu, hema, hemba, holoholo, nande, taabwa, tshiluba"
-location: "Uganda"
-language: "alur, chiga, ganda, rufumbira, runyoro, soga, tooro"
-# location: "Somali"
-# language: "somali"
+# location: "Uganda"
+# language: "alur, chiga, ganda, rufumbira, runyoro, soga, tooro"
+location: "Somali"
+language: "somali"
 # location: "Ethiopia"
 # language: "borana, burji"
 

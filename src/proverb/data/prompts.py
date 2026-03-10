@@ -4,12 +4,45 @@ import os
 import importlib.util
 import sys
 
+
 # GENERATE_PROMPT_LITERAL = (
 #     "I will provide you with a proverb in {source_language}. \n"
 #     "Please give its figurative meaning in {target_language}. \n"
 #     "Respond only with the meaning, without any additional explanations. \n"
 #     "Proverb: {proverb}"
 # )
+#
+FEW_SHOTS_PROMPT = {}
+
+
+def pre_load_few_shot_prompts(data_args: DataArguments, task_type: str):
+    for loc, langs in data_args.location_langauge_paris:
+        for lang in langs:
+            if task_type == "gen_swa_literal":
+                file_name = "swa_literal.py"
+                v_name = "GENERATE_PROMPT_LITERAL"
+            elif task_type == "gen_eng_literal":
+                file_name = "eng_literal.py"
+                v_name = "GENERATE_PROMPT_LITERAL"
+            elif task_type == "gen_swa_fig":
+                file_name = "swa_figurative.py"
+                v_name = "GENERATE_PROMPT_FIGURATIVE"
+            elif task_type == "gen_eng_fig":
+                file_name = "eng_figurative.py"
+                v_name = "GENERATE_PROMPT_FIGURATIVE"
+            else:
+                raise ValueError(f"Unknown task type: {task_type}")
+
+            python_file_path = os.path.join(
+                data_args.dataset_dir,
+                "../",
+                "few_shot_prompts",
+                loc,
+                lang,
+                file_name,
+            )
+            prompts_template = _import_variable_from_file(python_file_path, v_name)
+            FEW_SHOTS_PROMPT[(loc, lang)] = prompts_template
 
 
 def _import_variable_from_file(file_path, variable_name):
@@ -90,32 +123,32 @@ GENERATE_PROMPT_FIGURATIVE = (
 #     "Proverb: {proverb}"
 # )
 #
-FEW_SHOTS_GENERATE_PROMPT_LITERAL = (
-    "**Task:**\nYou are a professional translator specializing in proverbs \n"
-    "Your task is to translate the following proverb from {source_language} to {target_language} literally. \n\n"
-    "**Input**:\n"
-    "A proverb in {source_language}\n\n"
-    "**Output**:\n"
-    "The literal translation of the proverb in {target_language}.\n\n"
-    "**Examples**:\n\n"
-    "{content}"
-    "\n**Input**:\n{proverb}\n\n"
-    "**Output**:\n"
-)
-
-
-FEW_SHOTS_GENERATE_PROMPT_FIGURATIVE = (
-    "**Task:**\nYou are a professional translator specializing in proverbs \n"  # TODO: add native speaker
-    "Your task is to infer the figurative meaning of the following proverb from {source_language} to {target_language}. \n\n"
-    "**Input**:\n"
-    "A proverb in {source_language}\n\n"
-    "**Output**:\n"
-    "The figurative meaning of the proverb in {target_language}.\n\n"
-    "**Examples**:\n\n"
-    "{content}"
-    "\n**Input**:\n{proverb}\n\n"
-    "**Output**:\n"
-)
+# FEW_SHOTS_GENERATE_PROMPT_LITERAL = (
+#     "**Task:**\nYou are a professional translator specializing in proverbs \n"
+#     "Your task is to translate the following proverb from {source_language} to {target_language} literally. \n\n"
+#     "**Input**:\n"
+#     "A proverb in {source_language}\n\n"
+#     "**Output**:\n"
+#     "The literal translation of the proverb in {target_language}.\n\n"
+#     "**Examples**:\n\n"
+#     "{content}"
+#     "\n**Input**:\n{proverb}\n\n"
+#     "**Output**:\n"
+# )
+#
+#
+# FEW_SHOTS_GENERATE_PROMPT_FIGURATIVE = (
+#     "**Task:**\nYou are a professional translator specializing in proverbs \n"  # TODO: add native speaker
+#     "Your task is to infer the figurative meaning of the following proverb from {source_language} to {target_language}. \n\n"
+#     "**Input**:\n"
+#     "A proverb in {source_language}\n\n"
+#     "**Output**:\n"
+#     "The figurative meaning of the proverb in {target_language}.\n\n"
+#     "**Examples**:\n\n"
+#     "{content}"
+#     "\n**Input**:\n{proverb}\n\n"
+#     "**Output**:\n"
+# )
 
 
 def get_prompt_by_task(
@@ -158,32 +191,17 @@ def get_few_shots_prompt_by_task(
     location: Optional[str] = None,
     data_args: Optional[DataArguments] = None,
 ):
-    if task_type == "gen_swa_literal":
-        file_name = "swa_literal.py"
-        v_name = "GENERATE_PROMPT_LITERAL"
-    elif task_type == "gen_eng_literal":
-        file_name = "eng_literal.py"
-        v_name = "GENERATE_PROMPT_LITERAL"
-    elif task_type == "gen_swa_fig":
-        file_name = "swa_figurative.py"
-        v_name = "GENERATE_PROMPT_FIGURATIVE"
-    elif task_type == "gen_eng_fig":
-        file_name = "eng_figurative.py"
-        v_name = "GENERATE_PROMPT_FIGURATIVE"
+    if FEW_SHOTS_PROMPT == {}:
+        pre_load_few_shot_prompts(data_args, task_type)
+
+    template = FEW_SHOTS_PROMPT.get((location, source_language))
+    if template is not None:
+        return template.format(
+            source_language=source_language,
+            target_language="Swahili" if "swa" in task_type else "English",
+            proverb=proverb,
+        )
     else:
-        raise ValueError(f"Unknown task type: {task_type}")
-
-    python_file_path = os.path.join(
-        data_args.dataset_dir,
-        "../",
-        "few_shot_prompts",
-        location,
-        source_language,
-        file_name,
-    )
-
-    return _import_variable_from_file(python_file_path, v_name).format(
-        source_language=source_language,
-        target_language="swahili" if "swa" in task_type else "english",
-        proverb=proverb,
-    )
+        raise ValueError(
+            f"No few-shots prompt found for location: {location}, language: {source_language}"
+        )

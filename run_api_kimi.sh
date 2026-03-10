@@ -7,7 +7,7 @@ export API_KEY_ENV_NAME="OPENROUTER_API_KEY"
 
 python -m proverb.commands.evaluate_openai --config configs/default.yaml \
   --task_type gen_eng_literal \
-  --output_dir outputs/kimi-k2/kimi-k2-gen-eng-literal-Ethiopia \
+  --output_dir outputs/kimi-k2/kimi-k2-gen-eng-literal-Somali \
   --model_name_or_path moonshotai/kimi-k2.5 \
   --template_name=none \
   --api_delay=1.0 \
@@ -17,7 +17,7 @@ python -m proverb.commands.evaluate_openai --config configs/default.yaml \
 
 python -m proverb.commands.evaluate_openai --config configs/default.yaml \
   --task_type gen_eng_fig \
-  --output_dir outputs/kimi-k2/kimi-k2-gen-eng-fig-Ethiopia \
+  --output_dir outputs/kimi-k2/kimi-k2-gen-eng-fig-Somali \
   --model_name_or_path moonshotai/kimi-k2.5 \
   --template_name=none \
   --api_delay=1.0 \
@@ -27,7 +27,7 @@ python -m proverb.commands.evaluate_openai --config configs/default.yaml \
 
 python -m proverb.commands.evaluate_openai --config configs/default.yaml \
   --task_type gen_swa_literal \
-  --output_dir outputs/kimi-k2/kimi-k2-gen-swa-literal-Ethiopia \
+  --output_dir outputs/kimi-k2/kimi-k2-gen-swa-literal-Somali \
   --model_name_or_path moonshotai/kimi-k2.5 \
   --template_name=none \
   --api_delay=1.0 \
@@ -37,7 +37,7 @@ python -m proverb.commands.evaluate_openai --config configs/default.yaml \
 
 python -m proverb.commands.evaluate_openai --config configs/default.yaml \
   --task_type gen_swa_fig \
-  --output_dir outputs/kimi-k2/kimi-k2-gen-swa-fig-Ethiopia \
+  --output_dir outputs/kimi-k2/kimi-k2-gen-swa-fig-Somali \
   --model_name_or_path moonshotai/kimi-k2.5 \
   --template_name=none \
   --api_delay=1.0 \
