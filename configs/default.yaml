@@ -9,7 +9,7 @@ template_name: gemma
 # language: "digo, ekegusii, gikuyu, kamba, luo, maasai, meru, nandi, nubian_2, nubian, nyala, olusamia, orma, rendille, samburu, teso, tugen, turkana"
 # location: "Tanzania"
 # language: "gweno, kihangaza, kihara, makonde, nyaturu, pare, sukuma, zigula"
-few_shot_num: 0
+few_shot_num: 3
 # location: "DRC"
 # language: "kwele, tetela, bangubangu, hema, hemba, holoholo, nande, taabwa, tshiluba"
 location: "Uganda"

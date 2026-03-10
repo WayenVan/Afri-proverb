@@ -1,3 +1,5 @@
+#!/bin/bash
+
 export PYTHONPATH="./src:$PYTHONPATH"
 export CUDA_LAUNCH_BLOCKING=1
 
@@ -18,6 +20,12 @@ MODEL_NAME="Qwen/Qwen3-4B"
 MODEL_SHORT="qwen3-4b"
 TEMPLATE="qwen3"
 
+# Log file
+LOG_FILE="run_$(date +%Y%m%d_%H%M%S).log"
+
+echo "Starting evaluations at $(date)" | tee -a "$LOG_FILE"
+echo "Log file: $LOG_FILE" | tee -a "$LOG_FILE"
+
 # Loop through all locations
 for location in "${!LOCATIONS[@]}"; do
   language="${LOCATIONS[$location]}"
@@ -29,7 +37,11 @@ for location in "${!LOCATIONS[@]}"; do
     # Create output directory if it doesn't exist
     mkdir -p "$output_dir"
     
-    echo "Running: Location=$location, Task=$task_type"
+    echo "" | tee -a "$LOG_FILE"
+    echo "========================================" | tee -a "$LOG_FILE"
+    echo "Running: Location=$location, Task=$task_type" | tee -a "$LOG_FILE"
+    echo "Started at: $(date)" | tee -a "$LOG_FILE"
+    echo "========================================" | tee -a "$LOG_FILE"
     
     accelerate launch --num_processes=2 --mixed_precision=bf16 \
       -m proverb.commands.evaluate --config configs/default.yaml \
@@ -38,8 +50,15 @@ for location in "${!LOCATIONS[@]}"; do
       --template_name "$TEMPLATE" \
       --model_name_or_path "$MODEL_NAME" \
       --location "$location" \
-      --language "$language"
+      --language "$language" 2>&1 | tee -a "$LOG_FILE"
+    
+    if [ ${PIPESTATUS[0]} -eq 0 ]; then
+      echo "✓ Completed: $location - $task_type at $(date)" | tee -a "$LOG_FILE"
+    else
+      echo "✗ Failed: $location - $task_type at $(date)" | tee -a "$LOG_FILE"
+    fi
   done
 done
 
-echo "All evaluations completed!"
+echo "" | tee -a "$LOG_FILE"
+echo "All evaluations completed at $(date)" | tee -a "$LOG_FILE"
