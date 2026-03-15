@@ -1,6 +1,6 @@
 import modal
 
-app = modal.App("afri-proverb-smollm")
+app = modal.App("afri-proverb-llama")
 
 image = (
     modal.Image.debian_slim(python_version="3.10")
@@ -34,7 +34,7 @@ volume = modal.Volume.from_name("afri-proverb-data", create_if_missing=True)
     secrets=[modal.Secret.from_name("huggingface-secret")],
 )
 def run_evaluations():
-    """Run all evaluations for SmolLM"""
+    """Run all evaluations for Llama with few-shot learning"""
     import subprocess
     import os
     
@@ -55,9 +55,9 @@ def run_evaluations():
     }
     
     task_types = ["gen_eng_literal", "gen_eng_fig", "gen_swa_literal", "gen_swa_fig"]
-    model_name = "HuggingFaceTB/SmolLM3-3B"
-    model_short = "smollm3-3b"
-    template_name = "smollm3"
+    model_name = "meta-llama/Llama-3.2-3B-Instruct"
+    model_short = "llama3.2-3b"
+    template_name = "llama3"
     
     for location, language in locations.items():
         for task_type in task_types:
@@ -90,7 +90,7 @@ def run_evaluations():
     
     print("\nAll evaluations completed!")
     print("Download results with:")
-    print("  modal volume get afri-proverb-data /workspace/outputs/smollm3-3b ./outputs/smollm3-3b")
+    print("  modal volume get afri-proverb-data /workspace/outputs/llama3.2-3b ./outputs/llama3.2-3b")
 
 @app.local_entrypoint()
 def main():
