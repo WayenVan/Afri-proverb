@@ -1,0 +1,47 @@
+# model_name_or_path: google/gemma-3-4b-it
+model_name_or_path: google/gemma-3-12b-it
+
+debug: false
+
+dataset_dir: dataset/African-Proverbs/Data
+template_name: gemma
+# location: "Kenya"
+# language: "digo, ekegusii, gikuyu, kamba, luo, maasai, meru, nandi, nubian_2, nubian, nyala, olusamia, orma, rendille, samburu, teso, tugen, turkana"
+# location: "Tanzania"
+# language: "gweno, kihangaza, kihara, makonde, nyaturu, pare, sukuma, zigula"
+few_shot_num: 0
+# location: "DRC"
+# language: "kwele, tetela, bangubangu, hema, hemba, holoholo, nande, taabwa, tshiluba"
+# location: "Uganda"
+# language: "alur, chiga, ganda, rufumbira, runyoro, soga, tooro"
+# location: "Somali"
+# language: "somali"
+location: "Ethiopia"
+language: "borana, burji"
+
+task_class: eval
+task_type: "gen_eng_literal"
+
+num_train_epochs: 10
+predict_with_generate: True
+per_device_train_batch_size: 1
+per_device_eval_batch_size: 1
+report_to: none
+remove_unused_columns: False
+ddp_find_unused_parameters: False
+save_strategy: steps
+save_steps: 1000
+save_total_limit: 1
+logging_steps: 50
+# eval_strategy: "steps"
+# eval_steps: 1000
+learning_rate: 1.0e-5
+dataloader_num_workers: 4
+lr_scheduler_type: cosine
+output_dir: outputs/gemma3-12b-it-gen-eng-literal
+
+# only use for api calls
+api_delay: 1
+api_semophore: 6 # how many api calls are paralling calls
+api_url: "https://openrouter.ai/api/v1"
+api_key_env_name: "OPENROUTER_API_KEY"

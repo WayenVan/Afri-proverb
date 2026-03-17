@@ -89,7 +89,12 @@ async def fetch_response(
             max_completion_tokens=1024,
             reasoning_effort="none",
         )
-        content = response.choices[0].message.content
+        try:
+            content = response.choices[0].message.content
+        except (KeyError, IndexError, TypeError) as e:
+            print(f"Error parsing response for prompt: {prompt}")
+            print(f"Full response: {response}")
+            content = ""
         if content is None:
             print(f"Warning: Received empty response for prompt: {prompt}")
             print(f"Full response: {response}")

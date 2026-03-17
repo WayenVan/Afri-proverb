@@ -145,6 +145,19 @@
         "csi_slt.commands.evaluate",
         "engine.training_args.dataloader_num_workers=4"
       ]
+    },
+    {
+      "name": "llm_as_judge",
+      "type": "python",
+      "request": "launch",
+      "module": "proverb.commands.llm_as_judge",
+      "console": "integratedTerminal",
+      "env": {
+        "PYTHONPATH": "./src:${env:PYTHONPATH}",
+        "CUDA_VISIBLE_DEVICES": "0",
+        "WANDB_PROJECT": "debugs"
+      },
+      "justMyCode": true
     }
   ]
 }
